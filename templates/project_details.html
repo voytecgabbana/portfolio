@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .project-page { padding-top: 120px; z-index: 10; position: relative; min-height: 100vh; background: #000; }
+    
+    /* Szklany kontener */
+    .content-glass { 
+        background: rgba(255, 255, 255, 0.03); 
+        backdrop-filter: blur(20px); 
+        border: 1px solid rgba(255, 255, 255, 0.1); 
+        border-radius: 40px; 
+        padding: 60px; 
+        margin-bottom: 50px; 
+    }
+
+    .tech-badge { 
+        background: rgba(0, 212, 255, 0.1); 
+        border: 1px solid #00d4ff; 
+        color: #00d4ff; 
+        padding: 5px 15px; 
+        border-radius: 50px; 
+        font-size: 0.8rem; 
+        font-weight: 700; 
+        margin-right: 10px; 
+        margin-bottom: 10px;
+        display: inline-block; 
+    }
+
+    .video-container { 
+        position: relative; padding-bottom: 56.25%; height: 0; 
+        overflow: hidden; border-radius: 30px; margin-top: 40px; 
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .video-container video, .video-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    
+    .gallery-item img { border-radius: 20px; cursor: zoom-in; transition: 0.3s; width: 100%; border: 1px solid rgba(255,255,255,0.1); }
+    .gallery-item img:hover { transform: scale(1.03); border-color: #00d4ff; }
+
+    #lightbox { 
+        display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+        z-index: 99999; justify-content: center; align-items: center; 
+        cursor: zoom-out; backdrop-filter: blur(10px);
+    }
+</style>
+
+<div id="project-stars" style="position: fixed; inset: 0; z-index: -1;"></div>
+
+<div class="container project-page">
+    <div class="content-glass">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span style="color: #00d4ff; letter-spacing: 5px; font-weight: 900; text-transform: uppercase;">
+                    {{ t.case_study if t.case_study else "CASE STUDY" }}
+                </span>
+                
+                <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin: 20px 0;">{{ p_content.title }}</h1>
+                <p style="font-size: 1.1rem; color: #ccc; line-height: 1.8; max-width: 800px;">{{ p_content.full_desc }}</p>
+                
+                <div class="mt-4">
+                    <h5 class="fw-bold mb-3" style="letter-spacing: 2px;">{{ t.tech_title }}</h5>
+                    {% for tech in project.tech %}
+                        <div class="tech-badge">{{ tech }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4 text-end d-none d-lg-block">
+                {% if project.github %}
+                <a href="{{ project.github }}" target="_blank" class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold">
+                    {{ t.btn_github }}
+                </a>
+                {% elif project.tableau_url %}
+                <a href="{{ project.tableau_url }}" target="_blank" class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold" style="border-color: #e97627; color: #e97627;">
+                    {{ t.btn_dashboard }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if project.video %}
+        <div class="video-container">
+            <video controls autoplay muted loop playsinline>
+                <source src="{{ project.video }}" type="video/mp4">
+            </video>
+        </div>
+        {% endif %}
+
+        <div class="row g-4 mt-5">
+            {% for img in project.gallery %}
+            <div class="col-md-4 gallery-item">
+                <img src="{{ img }}" class="img-fluid lb-trigger" alt="Screenshot">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="text-center pb-5">
+        <a href="/" class="btn btn-link text-white text-decoration-none fw-bold" style="letter-spacing: 2px;">
+            {{ t.btn_back }}
+        </a>
+    </div>
+</div>
+
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lb-img" style="max-width: 90%; max-height: 85vh; border-radius: 15px; box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);">
+</div>
+
+<script>
+    // Inicjalizacja gwiazd tła
+    const canvas = document.getElementById('project-stars');
+    for (let i = 0; i < 100; i++) {
+        const s = document.createElement('div');
+        s.style.position = 'absolute';
+        s.style.background = 'white';
+        s.style.width = '2px';
+        s.style.height = '2px';
+        s.style.borderRadius = '50%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.opacity = Math.random();
+        canvas.appendChild(s);
+    }
+
+    // Obsługa Lightboxa
+    document.querySelectorAll('.lb-trigger').forEach(img => {
+        img.onclick = () => {
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+    });
+
+    // Animacja wejścia GSAP
+    gsap.from(".content-glass", { opacity: 0, y: 30, duration: 1.2, ease: "power4.out" });
+</script>
+{% endblock %}
