@@ -42,6 +42,25 @@
         z-index: 99999; justify-content: center; align-items: center; 
         cursor: zoom-out; backdrop-filter: blur(10px);
     }
+
+    /* --- POPRAWKI NA TELEFON (MOBILE) --- */
+    @media (max-width: 768px) {
+        /* Mniejsze odstępy na górze */
+        .project-page { padding-top: 90px; }
+        
+        /* Mniejsze marginesy wewnątrz "szklanego" kontenera */
+        .content-glass { padding: 25px; border-radius: 25px; margin-top: 20px; }
+        
+        /* Zmniejszenie ogromnego tytułu */
+        .content-glass h1 { font-size: 2.2rem !important; }
+        
+        /* Zmniejszenie przycisków i tagów */
+        .tech-badge { font-size: 0.7rem; padding: 4px 12px; }
+        .btn-tableau-large, .btn-outline-light { padding: 12px 20px !important; font-size: 0.9rem; }
+        
+        /* Przycisk wraca pod opis projektu na telefonie */
+        .text-end.d-none.d-lg-block { display: block !important; text-align: left !important; margin-top: 20px; }
+    }
 </style>
 
 <div id="project-stars" style="position: fixed; inset: 0; z-index: -1;"></div>

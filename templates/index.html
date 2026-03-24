@@ -69,6 +69,40 @@
     }
     .about-btn-end .arrow { transition: transform 0.3s ease; }
     .about-btn-end:hover .arrow { transform: translateX(8px); }
+
+    /* --- POPRAWKI NA TELEFON (MOBILE) --- */
+    @media (max-width: 768px) {
+        /* Mniejsze logo w preloaderze */
+        .pl-name { font-size: 3rem; }
+        
+        /* Mniejsze odstępy między projektami */
+        .horizontal-wrapper { gap: 10vw; padding-left: 5vw; }
+        
+        /* Karta projektu: węższa, wyższa i ułożona pionowo (zdjęcie na górze, tekst na dole) */
+        .project-card {
+            width: 85vw;
+            height: 75vh;
+            flex-direction: column;
+            border-radius: 20px;
+        }
+        
+        /* Zdjęcie na telefonie */
+        .card-visual { flex: 1; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Tekst na telefonie */
+        .card-content { flex: 1; padding: 20px; justify-content: space-evenly; }
+        .card-content h2 { font-size: 1.8rem; }
+        .card-content p { font-size: 0.85rem; margin-top: 10px; overflow-y: auto; max-height: 100px; }
+        
+        /* Przyciski na dole karty */
+        .btn-github, .btn-tableau { padding: 10px 20px; font-size: 0.85rem; justify-content: center; }
+        
+        /* Sekcja "Pracujmy Razem" */
+        .end-message { padding-left: 5vw; padding-right: 5vw; align-items: center; text-align: center; }
+        .end-message h1 { font-size: 3rem !important; }
+        .about-btn-end { padding: 12px 25px; font-size: 0.9rem; }
+        .end-message div { justify-content: center; }
+    }
 </style>
 
 <div id="preloader">
