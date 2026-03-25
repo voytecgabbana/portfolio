@@ -47,7 +47,7 @@ projects_data = [
         },
         'tech': ['Python', 'Streamlit', 'Plotly'],
         'gallery': ['/static/images/statbase1.jpg', '/static/images/statbase2.jpg', '/static/images/statbase3.jpg'],
-        'video': '/static/vids/2026-02-14 17-06-24.mp4',
+        'video': '/static/vids/statbase.mp4',
         'github': 'https://statbase-webapp.streamlit.app',
     },
     {
@@ -66,7 +66,7 @@ projects_data = [
         },
         'tech': ['Flask', 'SQLAlchemy', 'Bootstrap', 'JavaScript'],
         'gallery': ['/static/images/clinic1.jpg', '/static/images/clinic2.jpg', '/static/images/clinic3.jpg'],
-        'video': '/static/vids/2026-02-14 17-23-08.mp4',
+        'video': '/static/vids/clinicweb.mp4',
         'github': 'https://clinicweb-eiwf.onrender.com'
     },
     {
